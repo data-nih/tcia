@@ -1,142 +1,133 @@
-# The Cancer Imaging Archive (TCIA) Collections
+# **The Cancer Imaging Archive (TCIA) Collections**
 
-`data-nih/tcia`
+**The Cancer Imaging Archive (TCIA)** hosts de-identified cancer imaging datasets, organized by disease, modality, or research focus. Most collections share imaging in **DICOM**, sometimes accompanied by clinical, genomic, and expert annotation.
 
-**The Cancer Imaging Archive (TCIA)** is a public resource that hosts de-identified medical images of cancer. Data are organized into **collections** grouped by disease, modality, or research focus. Most radiology images are shared in **DICOM** format, with additional supporting information (clinical, genomics, outcomes, expert annotations) when available.
-
-This repository provides **curated, analysis-ready derivatives** for selected TCIA collections, focused on brain tumor cohorts with rich imaging and clinical annotation. Raw archives remain hosted on TCIA; this repo mirrors key NIfTI and diffusion derivatives and tracks their provenance for use with DSI Studio and related workflows.
-
----
-
-## Contents
-
-Currently included TCIA collections:
-
-* [UPenn-GBM: Advanced MRI, Clinical, Genomics & Radiomics](#upenn-gbm-advanced-mri-clinical-genomics--radiomics)
-* [UCSF-PDGM: Preoperative Diffuse Glioma MRI](#ucsf-pdgm-preoperative-diffuse-glioma-mri)
-
-Each release folder contains:
-
-* Imaging data in **NIfTI** (structural, FLAIR, contrast-enhanced T1, etc.)
-* When available, DSI Studio–ready **SZ/GQI/QSDR** derivatives for diffusion MRI
-* Basic subject-level metadata and QC tables (where provided by the source)
-
-For full clinical, genomic, and outcome variables, please refer to the original TCIA collection pages.
+This repository provides **curated, analysis-ready NIfTI derivatives** for selected TCIA brain tumor collections.  
+Where possible, diffusion MRI derivatives (**SZ / GQI / QSDR**) are provided in formats compatible with **DSI Studio**.  
+Raw TCIA DICOM archives remain on TCIA servers; only derived files are mirrored here.
 
 ---
 
-## UPenn-GBM: Advanced MRI, Clinical, Genomics & Radiomics
+# **UPenn-GBM — Advanced MRI, Clinical, Genomics & Radiomics**
 
-**Release:** `upenn-gbm`
-**Source:** The University of Pennsylvania glioblastoma (UPenn-GBM) cohort (TCIA)
+**Release tag:** `upenn-gbm`  
+**Source:** University of Pennsylvania Glioblastoma (UPenn-GBM) TCIA Collection  
 
-This collection includes multi-parametric MRI and rich clinical/genomic annotation for **de novo glioblastoma (GBM)** patients:
+This collection provides multi-parametric MRI, clinical outcomes, tumor segmentations, and genomic features for **de novo glioblastoma (GBM)**.
 
-* **Imaging:**
+### **Included data**
 
-  * Multi-parametric MRI (mpMRI) including T1w, T2w, FLAIR, and contrast-enhanced T1w
-  * Skull-stripped and co-registered volumes in NIfTI format
-* **Segmentations:**
+- **Imaging**
+  - T1w, T2w, FLAIR, contrast-enhanced T1w  
+  - Skull-stripped, co-registered NIfTI volumes  
+- **Segmentations**
+  - Tumor subregions (expert-corrected): enhancing, non-enhancing, edema  
+- **Non-imaging (via TCIA)**
+  - Clinical outcomes  
+  - Genomics  
+  - Radiomics features  
+- **Applications**
+  - Tumor segmentation benchmarking  
+  - Radiogenomics  
+  - Progression modeling and survival prediction  
 
-  * Computer-aided and neuroradiologist-corrected tumor subregion labels
-  * Whole-brain and tumor subregion masks in NIfTI format
-* **Non-imaging data (in source TCIA):**
+### **License**
 
-  * Clinical outcomes, genomics, tumor progression
-  * Radiomic features and challenge-ready labels
+**CC BY 4.0**
 
-This dataset is suitable for:
+### **Citation**
 
-* Tumor segmentation benchmarking
-* Radiomics and radiogenomics
-* Survival/outcome modeling and progression studies
+Bakas S. et al., *Scientific Data* (2022) 9:453  
+*The University of Pennsylvania glioblastoma (UPenn-GBM) cohort: Advanced MRI, clinical, genomics, & radiomics.*
 
-**License**
+### **Linux / macOS — bash download**
 
-* Creative Commons Attribution 4.0 International (**CC BY 4.0**)
+```bash
+curl -s https://api.github.com/repos/data-nih/tcia/releases/tags/upenn-gbm | jq -r '.assets[].browser_download_url' | xargs -n1 -P4 curl -LO
+````
 
-**Citation**
+### **Windows PowerShell 5.x download**
 
-* Bakas S, Sako C, Akbari H, Bilello M, Sotiras A, Shukla G, Rudie JD, Santamaría NF, Kazerooni AF, Pati S, Rathore S.
-  *The University of Pennsylvania glioblastoma (UPenn-GBM) cohort: Advanced MRI, clinical, genomics, & radiomics.*
-  Scientific Data. 2022; 9(1):453.
-
-**Data Source**
-
-* TCIA collection page:
-  [https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=70225642](https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=70225642)
-
----
-
-## UCSF-PDGM: Preoperative Diffuse Glioma MRI
-
-**Release:** `ucsf-pdgm`
-**Source:** UCSF Preoperative Diffuse Glioma MRI Dataset (UCSF-PDGM, TCIA)
-
-UCSF-PDGM provides preoperative MRI from **501 adult patients** with histopathologically confirmed WHO grade II–IV diffuse gliomas:
-
-* **Cohort:**
-
-  * 501 subjects, preoperative imaging only
-  * WHO grades II–IV with associated genomic markers (e.g., IDH, MGMT, 1p/19q)
-* **Imaging:**
-
-  * Standard and advanced MRI:
-
-    * 3D T2 and T2/FLAIR
-    * SWI
-    * DWI and HARDI (55-direction)
-    * Pre- and post-contrast T1w
-    * 3D ASL perfusion
-* **Genomics & clinical:**
-
-  * IDH mutation, MGMT methylation, 1p/19q co-deletion
-  * Clinical and demographic metadata (via TCIA)
-* **Segmentations:**
-
-  * Multi-compartment tumor segmentations:
-
-    * Enhancing tumor
-    * Non-enhancing/necrotic tumor
-    * FLAIR hyperintensity/edema
-  * Initial AI segmentations refined by radiologists and reviewed by experts
-
-These data support:
-
-* AI-based tumor segmentation and grading
-* Radiogenomic modeling of IDH, MGMT, and related biomarkers
-* Comparative analysis with other glioma resources (e.g., TCGA-GBM, BraTS, UPenn-GBM)
-
-**License**
-
-* Creative Commons Attribution 4.0 International (**CC BY 4.0**)
-
-**Citation**
-
-* Calabrese, E., Villanueva-Meyer, J., Rudie, J., Rauschecker, A., Baid, U., Bakas, S., Cha, S., Mongan, J., & Hess, C. (2022).
-  *The University of California San Francisco Preoperative Diffuse Glioma MRI (UCSF-PDGM) (Version 4).*
-  The Cancer Imaging Archive. DOI: 10.7937/tcia.bdgf-8v37
+```powershell
+(Invoke-RestMethod "https://api.github.com/repos/data-nih/tcia/releases/tags/upenn-gbm").assets | ForEach-Object { Invoke-WebRequest $_.browser_download_url -OutFile (Split-Path $_.browser_download_url -Leaf) }
+```
 
 ---
 
-## Licensing and Use
+# **UCSF-PDGM — Preoperative Diffuse Glioma MRI**
 
-* All content in this repository respects the **original TCIA licenses** (e.g., CC BY 4.0) and usage conditions.
-* Users must:
+**Release tag:** `ucsf-pdgm`
+**Source:** UCSF Preoperative Diffuse Glioma MRI (TCIA)
 
-  * Follow the **TCIA data citation and usage guidelines** for each collection.
-  * Cite both the **original TCIA dataset** and the associated **primary publications**.
+This dataset contains preoperative MRI for **501 adult patients** with WHO grade II–IV diffuse gliomas, including advanced diffusion and perfusion imaging.
 
-When using derivatives or curated subsets from `data-nih/tcia`, please add an acknowledgement such as:
+### **Included data**
+
+* **Cohort**
+
+  * 501 subjects
+  * WHO grade II–IV
+  * Genomic markers: IDH, MGMT, 1p/19q
+* **Imaging**
+
+  * 3D T2, 3D T2/FLAIR
+  * SWI
+  * DWI + **55-direction HARDI**
+  * Pre/post-contrast T1w
+  * 3D ASL perfusion
+* **Segmentations**
+
+  * Enhancing tumor
+  * Non-enhancing / necrotic tumor
+  * FLAIR hyperintensity (edema)
+  * Radiologist-refined BraTS-ensemble AI segmentations
+* **Applications**
+
+  * AI segmentation
+  * Radiogenomics (IDH, MGMT prediction)
+  * Comparative glioma research (vs. BraTS, TCGA-GBM, UPenn-GBM)
+
+### **License**
+
+**CC BY 4.0**
+
+### **Citation**
+
+Calabrese, E. et al. (2022).
+*The University of California San Francisco Preoperative Diffuse Glioma MRI (UCSF-PDGM).*
+TCIA. DOI: 10.7937/tcia.bdgf-8v37
+
+### **Linux / macOS — bash download**
+
+```bash
+curl -s https://api.github.com/repos/data-nih/tcia/releases/tags/ucsf-pdgm | jq -r '.assets[].browser_download_url' | xargs -n1 -P4 curl -LO
+```
+
+### **Windows PowerShell 5.x download**
+
+```powershell
+(Invoke-RestMethod "https://api.github.com/repos/data-nih/tcia/releases/tags/ucsf-pdgm").assets | ForEach-Object { Invoke-WebRequest $_.browser_download_url -OutFile (Split-Path $_.browser_download_url -Leaf) }
+```
+
+---
+
+# **Licensing and Use**
+
+* All derivatives follow the **original TCIA collection licenses** (mostly CC BY 4.0).
+* Users must comply with:
+
+  * TCIA **data usage and citation** requirements
+  * Citations of the **primary publications** for each dataset
+* When using curated derivatives from this repository, please add:
 
 > “Derived imaging files were curated via the Pittsburgh Fiber Data Hub (`data-nih/tcia`) from TCIA collections.”
 
 ---
 
-## Notes
+# **Notes**
 
-* This repository does **not** host original DICOM archives; these remain on TCIA servers.
-* NIfTI and diffusion derivatives here are provided to facilitate downstream analysis (e.g., tractography, radiomics, segmentation benchmarking).
-* Users are encouraged to perform their own QC and methodological checks before drawing scientific conclusions.
+* This repository **does not include** the original DICOM archives (hosted on TCIA).
+* NIfTI and diffusion derivatives are provided for convenience and downstream analysis (tractography, radiomics, segmentation research).
+* Users should perform their own QC and methodological validation before scientific reporting.
 
----
+
